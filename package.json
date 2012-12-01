@@ -1,15 +1,18 @@
 {
-  "name": "http-proxy",
+  "name": "httpp-proxy",
   "version": "0.8.5",
-  "description": "A full-featured http reverse proxy for node.js",
-  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "description": "A full-featured http/httpp reverse proxy for node.js",
+  "author": [
+    "Nodejitsu Inc. <info@nodejitsu.com>",
+	"tom zhou <zs68j2ee@gmail.com>"
+  ],
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
     "AvianFlu <avianflu@nodejitsu.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/nodejitsu/node-http-proxy.git"
+    "url": "https://github.com/InstantWebP2P/node-httpp-proxy.git"
   },
   "keywords": [
     "reverse",
