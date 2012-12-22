@@ -1,4 +1,4 @@
-# node-http-proxy [![Build Status](https://secure.travis-ci.org/nodejitsu/node-http-proxy.png)](http://travis-ci.org/nodejitsu/node-http-proxy)
+# node-httpp-proxy [![Build Status](https://secure.travis-ci.org/nodejitsu/node-http-proxy.png)](http://travis-ci.org/nodejitsu/node-http-proxy)
 
 <img src="http://i.imgur.com/8fTt9.png" />
 
@@ -12,13 +12,14 @@
 * Reverse or Forward Proxy based on simple JSON-based configuration
 * Supports [WebSockets][1]
 * Supports [HTTPS][2]
+* Supports [HTTPP][3]
 * Minimal request overhead and latency
 * Full suite of functional tests
 * Battled-hardened through __production usage__ @ [nodejitsu.com][0]
 * Written entirely in Javascript
 * Easy to use API
 
-### When to use node-http-proxy
+### When to use node-httpp-proxy
 
 Let's suppose you were running multiple http application servers, but you only wanted to expose one machine to the internet. You could setup node-http-proxy on that one machine and then reverse-proxy the incoming http requests to locally running services which were not exposed to the outside network. 
 
@@ -28,13 +29,13 @@ Let's suppose you were running multiple http application servers, but you only w
 curl https://npmjs.org/install.sh | sh
 ```
 
-### Installing node-http-proxy
+### Installing node-httpp-proxy
 
 ```
-npm install http-proxy
+npm install httpp-proxy
 ```
 
-## Using node-http-proxy
+## Using node-httpp-proxy
 
 There are several ways to use node-http-proxy; the library is designed to be flexible so that it can be used by itself, or in conjunction with other node.js libraries / tools:
 
