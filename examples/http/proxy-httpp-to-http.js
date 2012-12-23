@@ -44,7 +44,7 @@ http.createServer(function (req, res) {
 //
 httpProxy.createServer({
   target: {
-    http: false,
+    httpp: false,
 	host: 'localhost',
 	port: 8080
   },

@@ -39,6 +39,13 @@ httpp.createServer(function (req, res) {
 	res.end();
 }).listen(8000);
 
+// dummy agent server
+httpp.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write('hello httpp over http\n');
+	res.end();
+}).listen(8888);
+
 //
 // Create the proxy HTTP server listening on port 8080
 //
@@ -46,7 +53,9 @@ httpProxy.createServer({
   target: {
     httpp: true,
 	host: 'localhost',
-	port: 8000
+	port: 8000,
+	///localAddress: {addr: 'localhost'}
+	localAddress: {addr: 'localhost', port: 8888}
   },
   httpp: false
 }).listen(8080);
