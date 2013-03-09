@@ -12,7 +12,7 @@ var assert = require('assert'),
     request = require('request'),
     vows = require('vows'),
     macros = require('../macros'),
-    helpers = require('../helpers/index');
+    helpers = require('../helpers');
 
 var routeFile = path.join(__dirname, 'config.json');
 
@@ -24,6 +24,16 @@ vows.describe(helpers.describe('routing-table')).addBatch({
         "icanhaz.com": "127.0.0.1:{PORT}",
         "latency.com": "127.0.0.1:{PORT}"
       }
+    }),
+    "addHost() / removeHost()": macros.http.assertDynamicProxy({
+      hostnameOnly: true,
+      routes: {
+        "static.com":  "127.0.0.1:{PORT}",
+        "removed.com": "127.0.0.1:{PORT}"
+      }
+    }, {
+      add: [{ host: 'dynamic1.com', target: '127.0.0.1:' }],
+      drop: ['removed.com']
     }),
     "using RegExp": macros.http.assertProxiedToRoutes({
       routes: {
@@ -41,6 +51,14 @@ vows.describe(helpers.describe('routing-table')).addBatch({
       routes: {
         "foo.com": "127.0.0.1:{PORT}",
         "bar.com": "127.0.0.1:{PORT}"
+      }
+    }),
+    "using pathnameOnly": macros.http.assertProxiedToRoutes({
+      pathnameOnly: true,
+      routes: {
+        "/foo": "127.0.0.1:{PORT}",
+        "/bar": "127.0.0.1:{PORT}",
+        "/pizza": "127.0.0.1:{PORT}"
       }
     }),
     "using a routing file": macros.http.assertProxiedToRoutes({

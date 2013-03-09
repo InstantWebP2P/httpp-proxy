@@ -203,6 +203,24 @@ var options = {
 
 Notice here that I have not included paths on the individual domains because this is not possible when using only the HTTP 'Host' header. Care to learn more? See [RFC2616: HTTP/1.1, Section 14.23, "Host"][4].
 
+### Proxy requests using a 'Pathname Only' ProxyTable
+
+If you dont care about forwarding to different hosts, you can redirect based on the request path.
+
+``` js
+var options = {
+  pathnameOnly: true,
+  router: {
+    '/wiki': '127.0.0.1:8001',
+    '/blog': '127.0.0.1:8002',
+    '/api':  '127.0.0.1:8003'
+  }
+}
+```
+
+This comes in handy if you are running separate services or applications on separate paths.  Note, using this option disables routing by hostname entirely.
+
+
 ### Proxy requests with an additional forward proxy
 Sometimes in addition to a reverse proxy, you may want your front-facing server to forward traffic to another location. For example, if you wanted to load test your staging environment. This is possible when using node-http-proxy using similar JSON-based configuration to a proxy table: 
 
@@ -234,7 +252,7 @@ var server = httpProxy.createServer(function (req, res, proxy) {
   });
 });
 
-server.proxy.on('end', function() {
+server.proxy.on('end', function () {
   console.log("The request was proxied.");
 });
 
@@ -326,7 +344,7 @@ var certs = {
 //
 var options = {
   https: {
-    SNICallback: function(hostname){
+    SNICallback: function (hostname) {
       return certs[hostname];
     }
   },
@@ -412,7 +430,26 @@ httpProxy.createServer(
 ```
 
 ## Proxying WebSockets
-Websockets are handled automatically when using `httpProxy.createServer()`, but if you want to use it in conjunction with a stand-alone HTTP + WebSocket (such as [socket.io][5]) server here's how:
+Websockets are handled automatically when using `httpProxy.createServer()`, however, if you supply a callback inside the createServer call, you will need to handle the 'upgrade' proxy event yourself. Here's how:
+
+```js
+
+var options = {
+    ....
+};
+
+var server = httpProxy.createServer(
+    callback/middleware, 
+    options
+);
+
+server.listen(port, function () { ... });
+server.on('upgrade', function (req, socket, head) {
+    server.proxy.proxyWebSocketRequest(req, socket, head);
+});
+```
+
+If you would rather not use createServer call, and create the server that proxies yourself, see below:
 
 ``` js
 var http = require('http'),
@@ -435,11 +472,39 @@ var server = http.createServer(function (req, res) {
   proxy.proxyRequest(req, res);
 });
 
-server.on('upgrade', function(req, socket, head) {
+server.on('upgrade', function (req, socket, head) {
   //
   // Proxy websocket requests too
   //
   proxy.proxyWebSocketRequest(req, socket, head);
+});
+
+server.listen(8080);
+```
+
+### with custom server logic
+
+``` js
+var httpProxy = require('http-proxy')
+
+var server = httpProxy.createServer(function (req, res, proxy) {
+  //
+  // Put your custom server logic here
+  //
+  proxy.proxyRequest(req, res, {
+    host: 'localhost',
+    port: 9000
+  });
+})
+
+server.on('upgrade', function (req, socket, head) {
+  //
+  // Put your custom server logic here
+  //
+  server.proxy.proxyWebSocketRequest(req, socket, head, {
+    host: 'localhost',
+    port: 9000
+  });
 });
 
 server.listen(8080);
@@ -504,6 +569,7 @@ If you have a suggestion for a feature currently not supported, feel free to ope
     xforward: true // enables X-Forwarded-For
   },
   changeOrigin: false, // changes the origin of the host header to the target URL
+  timeout: 120000 // override the default 2 minute http socket timeout value in milliseconds
 }
 ```
 

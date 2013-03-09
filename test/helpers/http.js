@@ -61,9 +61,17 @@ exports.createServer = function (options, callback) {
       });
     }
 
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.write(options.output || 'hello proxy');
-    res.end();
+    if (options.outputHeaders) {
+      Object.keys(options.outputHeaders).forEach(function (header) {
+        res.setHeader(header, options.outputHeaders[header]);
+      });
+    }
+
+    setTimeout(function() {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.write(options.output || 'hello proxy'); 
+      res.end(); 
+    }, options.latency || 1);
   }
 
   var server = protocols.target === 'https'
@@ -114,6 +122,11 @@ exports.createProxyServer = function (options, callback) {
   function requestHandler(req, res) {
     var buffer = httpProxy.buffer(req);
 
+    if (options.outputHeaders) {
+      Object.keys(options.outputHeaders).forEach(function (header) {
+        res.setHeader(header, options.outputHeaders[header]);
+      });
+    }
     setTimeout(function () {
       //
       // Setup options dynamically for `RoutingProxy.prototype.proxyRequest`
