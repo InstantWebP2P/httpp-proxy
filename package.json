@@ -27,7 +27,7 @@
     "async": "0.2.x",
     "socket.io": "0.9.11",
     "socket.io-client": "0.9.11",
-    "ws": "0.4.23"
+    "wspp": "latest"
   },
   "main": "./lib/node-http-proxy",
   "bin": {
