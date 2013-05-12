@@ -13,7 +13,9 @@
     "reverse",
     "proxy",
     "http",
-    "httpp"
+    "httpp",
+    "peer",
+    "p2p"
   ],
   "dependencies": {
     "colors": "0.x.x",
