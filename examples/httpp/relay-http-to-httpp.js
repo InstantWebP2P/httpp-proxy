@@ -33,7 +33,7 @@ var httpp = require('httpp'),
 //
 // Create the target HTTPP server 
 //
-http.createServer(function (req, res) {
+httpp.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write('hello httpp over http\n');
   res.end();
@@ -44,7 +44,7 @@ http.createServer(function (req, res) {
 //
 httpProxy.createServer({
   target: {
-    httpp: false,
+    httpp: true,
 	host: 'localhost',
 	port: 8000
   },
