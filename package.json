@@ -3,7 +3,7 @@
   "version": "0.10.3",
   "description": "A full-featured httpp reverse proxy for node.js",
   "author": [
-    "tom zhou <zs68j2ee@gmail.com>"
+    "tom zhou <iwebpp@gmail.com>"
   ],
   "repository": {
     "type": "git",
