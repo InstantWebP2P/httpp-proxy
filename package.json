@@ -1,14 +1,15 @@
 {
-  "name": "http-proxy",
+  "name": "httpp-proxy",
   "version": "1.18.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/http-party/node-http-proxy.git"
+    "url": "https://github.com/instantwebp2p/node-httpp-proxy.git"
   },
-  "description": "HTTP proxying for the masses",
-  "author": "Charlie Robbins <charlie.robbins@gmail.com>",
+  "description": "forke of node-http-proxy for working with node-httpp",
+  "author": "Charlie Robbins <charlie.robbins@gmail.com>, tom zhou <appnet.link@gmail.com>",
   "maintainers": [
-    "jcrugzz <jcrugzz@gmail.com>"
+    "jcrugzz <jcrugzz@gmail.com>",
+    "tom zhou <appnet.link@gmail.com>"
   ],
   "main": "index.js",
   "dependencies": {
