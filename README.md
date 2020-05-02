@@ -1,8 +1,8 @@
-# node-httpp-proxy [![Build Status](https://secure.travis-ci.org/nodejitsu/node-http-proxy.png)](http://travis-ci.org/nodejitsu/node-http-proxy)
+# httpp-proxy [![Build Status](https://secure.travis-ci.org/nodejitsu/http-proxy.png)](http://travis-ci.org/nodejitsu/http-proxy)
 
 <img src="http://i.imgur.com/8fTt9.png" />
 
-## Battle-hardened node.js http proxy
+## Battle-hardened node.js http/httpp proxy
 
 ### Features
 
